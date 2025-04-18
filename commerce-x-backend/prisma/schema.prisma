@@ -19,22 +19,23 @@ model User {
   password  String
   role      String // 'admin' or 'customer'
   profile   String   @default("")
+  orders    Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   description String
-  price       Decimal  @db.Decimal(10, 2)
-  sku         String   @unique
+  price       Decimal     @db.Decimal(10, 2)
+  sku         String      @unique
   quantity    Int
   categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  category    Category    @relation(fields: [categoryId], references: [id])
+  orders      OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model Category {
@@ -44,4 +45,25 @@ model Category {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  status    String      @default("placed") // 'placed', 'shipped', 'delivered', 'cancelled', 'returned'
+  total     Float
+  createdAt DateTime    @default(now())
+  user      User        @relation(fields: [userId], references: [id])
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id        Int   @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  price     Float
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 }
