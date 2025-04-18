@@ -10,6 +10,7 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { PaymentsModule } from './payments/payments.module';
 import { json } from 'express';
+import { InvoicesModule } from './invoices/invoices.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { json } from 'express';
     ProductsModule,
     OrdersModule,
     PaymentsModule,
+    InvoicesModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
