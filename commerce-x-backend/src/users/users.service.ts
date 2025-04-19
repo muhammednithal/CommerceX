@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'generated/prisma';
 
 @Injectable()
 export class UsersService {
@@ -36,5 +37,21 @@ export class UsersService {
 
   async remove(id: number) {
     return this.prisma.user.delete({ where: { id } });
+  }
+
+  // Get all users (for Admin)
+  async findAll(): Promise<User[]> {
+    return this.prisma.user.findMany();
+  }
+
+  // Get a user by ID
+  async findOneById(id: number): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
   }
 }
