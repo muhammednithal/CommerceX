@@ -143,7 +143,7 @@ To access admin-specific routes:
 
 ---
 
-### 📁 Project Structure
+## 📁 Project Structure
 
 ecommerce/
 │
@@ -153,13 +153,13 @@ ecommerce/
 │ ├── products/ → Product & category management
 │ ├── cart/ → Cart operations
 │ ├── orders/ → Orders
-│ ├── payment/ → Payment (Stripe integration)
-│ ├── invoice/ → Invoice generation
+│ ├── payment/ → payment stripe integration
+│ ├── invoice/ → invoice generation
 │ ├── reviews/ → Product reviews & ratings
 │ ├── wishlist/ → Wishlist functionality
 │ ├── notifications/ → Email & in-app notifications
 │ ├── reports/ → Sales reports and analytics
-│ ├── prisma/ → Prisma service and DB connection
+│ ├── prisma/ → Prisma schema
 │
 ├── prisma/
 │ └── schema.prisma → Prisma schema definition
