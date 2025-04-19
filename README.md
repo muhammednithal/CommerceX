@@ -143,7 +143,7 @@ To access admin-specific routes:
 
 ---
 
-## 📁 Project Structure
+📁 Project Structure
 
 ecommerce/
 │
