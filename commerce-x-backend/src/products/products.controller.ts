@@ -7,6 +7,7 @@ import {
   Patch,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -44,6 +45,26 @@ export class ProductsController {
   @Delete('categories/:id')
   deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.removeCategory(id);
+  }
+
+  @Get('search')
+  searchProducts(@Query('query') query: string) {
+    return this.productsService.searchProducts(query);
+  }
+
+  @Get('filter')
+  filterProducts(
+    @Query('categoryId') categoryId?: number,
+    @Query('minPrice') minPrice?: number,
+    @Query('maxPrice') maxPrice?: number,
+    @Query('minRating') minRating?: number,
+  ) {
+    return this.productsService.filterProducts(
+      categoryId ? Number(categoryId) : undefined,
+      minPrice ? Number(minPrice) : undefined,
+      maxPrice ? Number(maxPrice) : undefined,
+      minRating ? Number(minRating) : undefined,
+    );
   }
 
   @Post()

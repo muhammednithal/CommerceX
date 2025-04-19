@@ -86,4 +86,75 @@ export class ProductsService {
     await this.findCategoryById(id);
     return this.prisma.category.delete({ where: { id } });
   }
+
+  async searchProducts(query: string) {
+    return this.prisma.product.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
+  }
+
+  async filterProducts(
+    categoryId?: number,
+    minPrice?: number,
+    maxPrice?: number,
+    minRating?: number,
+  ) {
+    // Step 1: Fetch products with reviews
+    const products = await this.prisma.product.findMany({
+      where: {
+        categoryId: categoryId,
+        price: {
+          gte: minPrice || undefined,
+          lte: maxPrice || undefined,
+        },
+      },
+      include: {
+        reviews: {
+          select: { rating: true },
+        },
+      },
+    });
+
+    // Step 2: Filter by computed average rating in memory (since not stored in DB)
+    const filtered = products.filter((product) => {
+      if (!minRating) return true;
+
+      const ratings = product.reviews.map((r) => r.rating);
+      const avgRating =
+        ratings.length > 0
+          ? ratings.reduce((sum, r) => sum + r, 0) / ratings.length
+          : 0;
+
+      return avgRating >= minRating;
+    });
+
+    // Optionally attach averageRating field for client use
+    return filtered.map((product) => {
+      const ratings = product.reviews.map((r) => r.rating);
+      const avgRating =
+        ratings.length > 0
+          ? ratings.reduce((sum, r) => sum + r, 0) / ratings.length
+          : 0;
+
+      return {
+        ...product,
+        averageRating: parseFloat(avgRating.toFixed(2)),
+      };
+    });
+  }
 }
