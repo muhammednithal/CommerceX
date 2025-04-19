@@ -1,0 +1,10 @@
+node_modules
+test
+.gitignore
+.git
+Dockerfile
+README.md
+dist/
+.prisma/
+prisma/db/
+npm-debug.log
