@@ -14,16 +14,17 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
   password  String
   role      String // 'admin' or 'customer'
-  profile   String   @default("")
+  profile   String     @default("")
   orders    Order[]
   cart      Cart[]
   reviews   Review[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  wishlist  Wishlist[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Product {
@@ -40,6 +41,7 @@ model Product {
   reviews     Review[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  Wishlist    Wishlist[]
 }
 
 model Category {
@@ -103,4 +105,15 @@ model Review {
 
   productId Int
   product   Product @relation(fields: [productId], references: [id])
+}
+
+model Wishlist {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  productId Int
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
 }

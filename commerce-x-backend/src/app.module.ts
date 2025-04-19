@@ -13,6 +13,7 @@ import { json } from 'express';
 import { InvoicesModule } from './invoices/invoices.module';
 import { CartModule } from './cart/cart.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ReviewsModule } from './reviews/reviews.module';
     InvoicesModule,
     CartModule,
     ReviewsModule,
+    WishlistModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
