@@ -12,6 +12,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { json } from 'express';
 import { InvoicesModule } from './invoices/invoices.module';
 import { CartModule } from './cart/cart.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CartModule } from './cart/cart.module';
     PaymentsModule,
     InvoicesModule,
     CartModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
