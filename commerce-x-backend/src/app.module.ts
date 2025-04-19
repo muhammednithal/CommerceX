@@ -11,6 +11,7 @@ import { OrdersModule } from './orders/orders.module';
 import { PaymentsModule } from './payments/payments.module';
 import { json } from 'express';
 import { InvoicesModule } from './invoices/invoices.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { InvoicesModule } from './invoices/invoices.module';
     OrdersModule,
     PaymentsModule,
     InvoicesModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
