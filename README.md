@@ -146,7 +146,3 @@ To access admin-specific routes:
 - Or seed an admin user via a seed script
 
 ---
-
-```
-
-```
