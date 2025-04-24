@@ -111,9 +111,10 @@ This will:
 
 Inside the app container, run:
 
-````bash
+```bash
 docker-compose exec app npx prisma migrate dev --name init
-```s
+```
+
 This applies the initial schema migration to the database.
 
 Then generate Prisma client:
@@ -145,4 +146,7 @@ To access admin-specific routes:
 - Or seed an admin user via a seed script
 
 ---
-````
+
+```
+
+```
