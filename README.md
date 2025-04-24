@@ -95,7 +95,9 @@ JWT_SECRET=your_jwt_secret
 
 Run the following command:
 
+```bash
 docker-compose up --build
+```
 
 This will:
 
@@ -109,8 +111,9 @@ This will:
 
 Inside the app container, run:
 
+````bash
 docker-compose exec app npx prisma migrate dev --name init
-
+```s
 This applies the initial schema migration to the database.
 
 Then generate Prisma client:
@@ -142,3 +145,4 @@ To access admin-specific routes:
 - Or seed an admin user via a seed script
 
 ---
+````
