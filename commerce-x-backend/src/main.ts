@@ -11,7 +11,6 @@ async function bootstrap() {
     .setTitle('CommerceX API')
     .setDescription('E-commerce backend API documentation')
     .setVersion('1.0')
-    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
